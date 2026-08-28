@@ -1,5 +1,8 @@
 include make/common.mk
 include make/terraform.mk
+include make/github.mk
+
+
 
 .PHONY: help check precommit
 
@@ -32,5 +35,3 @@ check: fmt-check validate security
 
 precommit:
 	pre-commit run --all-files
-
-include make/github.mk
