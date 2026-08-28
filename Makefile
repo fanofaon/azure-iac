@@ -1,5 +1,8 @@
 include make/common.mk
 include make/terraform.mk
+include make/github.mk
+
+
 
 .PHONY: help check precommit
 
