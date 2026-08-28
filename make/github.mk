@@ -17,30 +17,32 @@ PR_BODY ?= Pull Request depuis $(PR_HEAD)
 	gh-push \
 	gh-open \
 	gh-protect-main \
-	gh-protection-status
+	gh-protection-status \
+	gh-pr-url \
+	gh-pr-view
 
 gh-login:
-	gh auth login
+	@gh auth login
 
 gh-status:
-	gh auth status
+	@gh auth status
 
 gh-create:
-	gh repo create $(GITHUB_REPO) \
+	@gh repo create $(GITHUB_REPO) \
 		--$(VISIBILITY) \
 		--source=. \
 		--remote=origin \
 		--push
 
 gh-push:
-	git push -u origin $$(git branch --show-current)
+	@git push -u origin $$(git branch --show-current)
 
 gh-open:
-	gh repo view --web
+	@gh repo view --web
 
 gh-protect-main:
 	@printf '%s\n' '{"required_status_checks":null,"enforce_admins":true,"required_pull_request_reviews":{"dismiss_stale_reviews":true,"require_code_owner_reviews":false,"required_approving_review_count":0,"require_last_push_approval":false},"restrictions":null,"required_linear_history":false,"allow_force_pushes":false,"allow_deletions":false,"block_creations":false,"required_conversation_resolution":true,"lock_branch":false,"allow_fork_syncing":false}' | \
-	gh api \
+	@gh api \
 		--method PUT \
 		-H "Accept: application/vnd.github+json" \
 		-H "X-GitHub-Api-Version: 2026-03-10" \
@@ -48,14 +50,23 @@ gh-protect-main:
 		--input -
 
 gh-protection-status:
-	gh api \
+	@gh api \
 		-H "Accept: application/vnd.github+json" \
 		-H "X-GitHub-Api-Version: 2026-03-10" \
 		"/repos/$(GITHUB_REPO)/branches/main/protection"
 
 gh-pr-create:
-	gh pr create \
+	@gh pr create \
 		--base "$(PR_BASE)" \
 		--head "$(PR_HEAD)" \
 		--title "$(PR_TITLE)" \
 		--body "$(PR_BODY)"
+
+gh-pr-view:
+	@gh pr view
+
+gh-pr-merge:
+	@gh pr merge --merge --delete-branch
+
+gh-pr-url:
+	@gh pr view --json url -q '.url'
