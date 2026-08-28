@@ -1,0 +1,12 @@
+# Propriétaire par défaut
+* @fenixaley
+
+# Terraform
+*.tf @fenixaley
+*.hcl @fenixaley
+
+# Configuration GitHub
+.github/ @fenixaley
+
+# Scripts
+*.sh @fenixaley

@@ -1,0 +1,43 @@
+# Configuration locale
+
+.project.env
+
+# Terraform
+
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Variables Terraform potentiellement sensibles
+*.tfvars
+*.tfvars.json
+
+# Plans Terraform
+tfplan
+*.tfplan
+*.plan
+
+# Secrets
+
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Logs
+
+*.log
+
+# IDE
+
+.vscode/
+.idea/
+
+# Système
+
+.DS_Store
+Thumbs.db
