@@ -4,7 +4,13 @@ GITHUB_USERNAME := $(shell bash -c 'source .project.env && printf "%s" "$$GITHUB
 GITHUB_REPO := $(GITHUB_USERNAME)/$(PROJECT_NAME)
 VISIBILITY ?= public
 
+PR_BASE ?= main
+PR_HEAD ?= $(shell git branch --show-current)
+PR_TITLE ?= $(PR_HEAD)
+PR_BODY ?= Pull Request depuis $(PR_HEAD)
+
 .PHONY: \
+	gh-pr-create\
 	gh-login \
 	gh-status \
 	gh-create \
@@ -46,3 +52,10 @@ gh-protection-status:
 		-H "Accept: application/vnd.github+json" \
 		-H "X-GitHub-Api-Version: 2026-03-10" \
 		"/repos/$(GITHUB_REPO)/branches/main/protection"
+
+gh-pr-create:
+	gh pr create \
+		--base "$(PR_BASE)" \
+		--head "$(PR_HEAD)" \
+		--title "$(PR_TITLE)" \
+		--body "$(PR_BODY)"
