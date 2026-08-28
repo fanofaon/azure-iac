@@ -35,5 +35,3 @@ check: fmt-check validate security
 
 precommit:
 	pre-commit run --all-files
-
-include make/github.mk
