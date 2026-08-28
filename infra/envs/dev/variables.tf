@@ -31,10 +31,9 @@ variable "admin_username" {
   default     = "azureuser"
 }
 
-variable "ssh_public_key_path" {
-  description = "Chemin vers la cle publique SSH"
+variable "ssh_public_key" {
+  description = "la cle publique SSH"
   type        = string
-  default     = "~/.ssh/id_ed25519.pub"
 }
 
 variable "vm_size" {
